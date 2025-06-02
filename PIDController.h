@@ -14,9 +14,9 @@ class PIDController {
       double kP;
       double kI;
       double kD;
-      double previousError;
+      double prevError;
       double integral;
-      unsigned long previousTime;
+      unsigned long prevTime;
 };
 
 #endif

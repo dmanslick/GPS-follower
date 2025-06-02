@@ -10,8 +10,10 @@ class Drive : public Updatable {
     Drive(Motor& frontLeftMotor, Motor& frontRightMotor, Motor& backLeftMotor, Motor& backRightMotor);
     void setLeftPower(double power);
     void setRightPower(double power);
+    void setPower(double powerX, double powerY, double powerTheta);
     void setLeftVelocity(double velocity);
     void setRightVelocity(double velocity);
+    void setVelocity(double velocityFrontLeft, double velocityFrontRight, double velocityBackLeft, double velocityBackRight);
     void update() override;
   private:
     Motor& frontLeftMotor;

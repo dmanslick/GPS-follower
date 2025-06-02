@@ -33,7 +33,7 @@ void Motor::setVoltage(double voltage) {
 
 void Motor::setPower(double power) {
   controlMode = ControlModes::POWER;
-  setpoint = power;
+  setpoint = constrain(power, -1, 1);
 }
 
 void Motor::setVelocity(double velocity) {

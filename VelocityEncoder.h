@@ -6,11 +6,18 @@
 
 class VelocityEncoder : public Updatable {
   public:
-    VelocityEncoder(int port);
+    VelocityEncoder(int pinA, int pinB);
     void update() override;
+    
+    // velocity in m/s
     double getVelocity();
   private:
-    int port;
+    int pinA;
+    int pinB;
+    int prevA;
+    double wheelRadius;
+    unsigned long prevTime;
+    double velocity;
 }
 
 #endif

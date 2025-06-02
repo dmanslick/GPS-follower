@@ -9,35 +9,28 @@ PIDController::PIDController(double kP, double kI, double kD) {
   reset();
 }
 
-PIDController::PIDController(const PIDConfig& config) {
-  this->kP = config.kP;
-  this->kI = config.kI;
-  this->kD = config.kD;
-  reset();
-}
-
 double PIDController::calculate(double actual, double setpoint) {
   unsigned long currentTime = millis();
 
-  double deltaTime = (currentTime - previousTime) / 1000.0;
+  double dt = (currentTime - prevTime) / 1000.0;
   double error = setpoint - actual;
 
   double P = kP * error;
   
-  integral += error * deltaTime;
+  integral += error * dt;
   double I = kI * integral;
 
-  double derivative = (error - previousError) / deltaTime;
+  double derivative = (error - prevError) / dt;
   double D = kD * derivative;
 
-  previousError = error; 
-  previousTime = currentTime;
+  prevError = error; 
+  prevTime = currentTime;
 
   return P + I + D;
 }
 
 void PIDController::reset() {
-  this->previousError = 0;
-  this->previousTime = millis();
+  this->prevError = 0;
+  this->prevTime = millis();
   this->integral = 0;
 }
