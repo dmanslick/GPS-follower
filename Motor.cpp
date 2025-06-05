@@ -16,7 +16,7 @@ Motor::Motor(int pwmPin, int directionPin, double maxVoltage, PIDController& pid
   digitalWrite(directionPin, HIGH);
 }
 
-void Motor::setVoltage(double voltage) {
+void Motor::applyVoltage(double voltage) {
   voltage = constrain(voltage, -maxVoltage, maxVoltage);
 
   int pwmValue = (int)(255.0 * (fabs(voltage) / maxVoltage));
@@ -29,6 +29,11 @@ void Motor::setVoltage(double voltage) {
   }
 
   analogWrite(pwmPin, pwmValue);
+}
+
+void Motor::setVoltage(double voltage) {
+  controlMode = ControlModes::VOLTAGE;
+  setpoint = constrain(voltage, -maxVoltage, maxVoltage);
 }
 
 void Motor::setPower(double power) {
@@ -45,7 +50,7 @@ void Motor::update() {
   switch (controlMode) {
     case ControlModes::POWER: {
       double voltage = setpoint * maxVoltage;
-      setVoltage(voltage);
+      applyVoltage(voltage);
 
       break;
     }
@@ -56,8 +61,13 @@ void Motor::update() {
 
       double velocity = velocityEncoder.getVelocity();
       double output = pid.calculate(velocity, setpoint);    
-      setVoltage(output);
+      applyVoltage(output);
 
+      break;
+    }
+    case ControlModes::VOLTAGE: {
+      applyVoltage(setpoint);
+      
       break;
     }
   }
