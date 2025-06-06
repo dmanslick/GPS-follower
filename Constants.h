@@ -24,5 +24,7 @@ const VelocityEncoderPinConfig LeftBackVelocityEncoderPinConfig = { 0, 0 };
 const VelocityEncoderPinConfig RightFronttVelocityEncoderPinConfig = { 0, 0 };
 const VelocityEncoderPinConfig RightBackVelocityEncoderPinConfig = { 0, 0 };
  
+// max waypoints
+const int MaxWaypoints = 100;
 
 #endif

@@ -14,6 +14,7 @@ class Drive : public Updatable {
     void setLeftVelocity(double velocity);
     void setRightVelocity(double velocity);
     void setVelocity(double velocityFrontLeft, double velocityFrontRight, double velocityBackLeft, double velocityBackRight);
+    void setVelocity(double vx, double vy, double vTheta);
     void update() override;
   private:
     Motor& frontLeftMotor;

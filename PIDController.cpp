@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "PIDController.h"
-#include "PIDConfig.h"
+#include "ConfigTypes.h"
 
 PIDController::PIDController(double kP, double kI, double kD) {
   this->kP = kP;

@@ -2,7 +2,7 @@
 #define PIDController_H
 
 #include <Arduino.h>
-#include "PIDConfig.h"
+#include "ConfigTypes.h"
 
 class PIDController {
   public:

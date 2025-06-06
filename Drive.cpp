@@ -43,3 +43,7 @@ void Drive::setVelocity(double velocityFrontLeft, double velocityFrontRight, dou
   backLeftMotor.setVelocity(velocityBackLeft);
   backRightMotor.setVelocity(velocityBackRight);
 }
+
+void Drive::setVelocity(double vx, double vy, double vTheta) {
+
+}
