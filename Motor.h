@@ -34,6 +34,12 @@ class Motor : public Updatable {
     void setVelocity(double velocity);
 
     /*
+     * Sets the motor to operate in STOPPED mode.
+     * The motor will stop moving.
+     */
+    void stop();
+
+    /*
      * Updates the motor.
      */
     void update() override;
@@ -54,7 +60,8 @@ class Motor : public Updatable {
     enum class ControlModes {
       VOLTAGE,
       POWER,
-      VELOCITY
+      VELOCITY,
+      STOPPED
     };
     ControlModes controlMode;
     ControlModes prevControlMode;

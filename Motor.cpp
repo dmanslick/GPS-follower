@@ -46,6 +46,11 @@ void Motor::setVelocity(double velocity) {
   setpoint = velocity;
 }
 
+void Motor::stop() {
+  controlMode = ControlModes::STOPPED;
+  setpoint = 0;
+}
+
 void Motor::update() {
   switch (controlMode) {
     case ControlModes::POWER: {
@@ -68,6 +73,10 @@ void Motor::update() {
     case ControlModes::VOLTAGE: {
       applyVoltage(setpoint);
       
+      break;
+    }
+    case ControlModes::STOPPED: {
+      applyVoltage(0);
       break;
     }
   }
