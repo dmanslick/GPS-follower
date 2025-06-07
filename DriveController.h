@@ -9,14 +9,16 @@
 
 class DriveController {
   public: 
-    DriveController(Drive& drive, PIDController& distanceController, double tolerance)
+    DriveController(double xTolerance, double yTolerance, double thetaTolerance, Drive& drive, PIDController& distanceController)
     void run();
     void addWaypoint(double x, double y);
   private:
     double waypoints[MaxWaypoints][2];
     int waypointsCount;
     int currentWaypointCount;
-    double tolerance;
+    double xTolerance;
+    double yTolerance;
+    double thetaTolerance;
     PIDController& distanceController;
     Drive& drive;
 };

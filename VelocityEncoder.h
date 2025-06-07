@@ -6,11 +6,18 @@
 
 class VelocityEncoder : public Updatable {
   public:
-    VelocityEncoder(int pinA, int pinB);
+    VelocityEncoder(int pinA, int pinB, double wheelRadius);
     void update() override;
     
-    // velocity in m/s
+    /*
+     * Gets the estimated linear velocity of the encoder in m/s
+     */
     double getVelocity();
+
+    /*
+     * Gets the estimated angular velocity of the encoder in rad/s
+     */
+    double getAngularVelocity();
   private:
     int pinA;
     int pinB;

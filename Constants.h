@@ -12,19 +12,25 @@ const MotorPinConfig RightBackMotorPinConfig = { 0, 0 };
 // motor max voltage
 const double MotorMaxVoltage = 5;
 
-// PID configs
-const PIDConfig LeftFrontMotorPIDConfig = { 1, 1, 1 };
-const PIDConfig LeftBackMotorPIDConfig = { 1, 1, 1 };
-const PIDConfig RightFrontMotorPIDConfig = { 1, 1, 1 };
-const PIDConfig RightBackMotorPIDConfig = { 1, 1, 1 };
+// wheel radius
+const double WheelRadius = 1;
 
-// velocity encoder pin configs
-const VelocityEncoderPinConfig LeftFrontVelocityEncoderPinConfig = { 0, 0 };
-const VelocityEncoderPinConfig LeftBackVelocityEncoderPinConfig = { 0, 0 };
-const VelocityEncoderPinConfig RightFronttVelocityEncoderPinConfig = { 0, 0 };
-const VelocityEncoderPinConfig RightBackVelocityEncoderPinConfig = { 0, 0 };
+// PID configs
+const PIDConfig LeftFrontMotorPIDConfig = { 1, 1, WheelRadius };
+const PIDConfig LeftBackMotorPIDConfig = { 1, 1, WheelRadius };
+const PIDConfig RightFrontMotorPIDConfig = { 1, 1, WheelRadius };
+const PIDConfig RightBackMotorPIDConfig = { 1, 1, WheelRadius };
+
+// velocity encoder configs
+const VelocityEncoderConfig LeftFrontVelocityEncoderConfig = { 0, 0, 1 };
+const VelocityEncoderConfig LeftBackVelocityEncoderConfig = { 0, 0, 1 };
+const VelocityEncoderConfig RightFronttVelocityEncoderConfig = { 0, 0, 1 };
+const VelocityEncoderConfig RightBackVelocityEncoderConfig = { 0, 0, 1 };
  
 // max waypoints
 const int MaxWaypoints = 100;
+
+// drive controller config
+const DriveControllerToleranceConfig DriveControllerConfig = { 1, 1, 1 };
 
 #endif

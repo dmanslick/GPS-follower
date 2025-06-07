@@ -12,10 +12,16 @@ struct MotorPinConfig {
   int directionPin;
 }
 
-struct VelocityEncoderPinConfig {
+struct VelocityEncoderConfig {
   int pinA;
   int pinB;
   double wheelRadius;
+}
+
+struct DriveControllerToleranceConfig {
+  double xTolerance;
+  double yTolerance;
+  double thetaTolerance;
 }
 
 #endif

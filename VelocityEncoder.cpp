@@ -16,6 +16,10 @@ double VelocityEncoder::getVelocity() {
   return velocity;
 }
 
+double VelocityEncoder::getAngularVelocity() {
+  return velocity / 2 * PI * wheelRadius;
+}
+
 void VelocityEncoder::update() {
   int A = digitalRead(pinA);
   int B = digitalRead(pinB);

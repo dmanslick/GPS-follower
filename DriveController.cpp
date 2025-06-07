@@ -3,10 +3,12 @@
 #include "Drive.h"
 #include "Utils.h"
 
-DriveController::DriveController(Drive& drive, PIDController& distanceController, double tolerance) : drive(drive), distanceController(distanceController) {
+DriveController::DriveController(double xTolerance, double yTolerance, double thetaTolerance, Drive& drive, PIDController& distanceController) : drive(drive), distanceController(distanceController) {
   this->waypointsCount = 0;
   this->currentWaypointCount = 0;
-  this->tolerance = tolerance;
+  this->xTolerance = xTolerance;
+  this->yTolerance = yTolerance;
+  this->thetaTolerance = thetaTolerance;
 }
 
 void DriveController::addWaypoint(double x, double y) {
