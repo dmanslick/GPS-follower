@@ -2,24 +2,23 @@
 #define Drive_H
 
 #include <Arduino.h>
-#include "Motor.h"
+#include "MotorController.h"
 
-class Drive : public Updatable {
+class Drive {
   public: 
-    Drive(double lx, double ly, Motor& frontLeftMotor, Motor& frontRightMotor, Motor& backLeftMotor, Motor& backRightMotor);
-    void setLeftPower(double power);
-    void setRightPower(double power);
+    Drive(double lx, double ly, MotorController& frontLeftMotorController, MotorController& frontRightMotorController, MotorController& backLeftMotorContoller, MotorController& backRightMotorController);
     void setPower(double powerX, double powerY, double powerTheta);
-    void setLeftVelocity(double velocity);
-    void setRightVelocity(double velocity);
-    void setVelocity(double velocityFrontLeft, double velocityFrontRight, double velocityBackLeft, double velocityBackRight);
+    void setFrontLeftVelocity(double velocity);
+    void setFrontRightVelocity(double velocity);
+    void setBackLeftVelocity(double velocity);
+    void setBackRightVelocity(double velocity);
     void setVelocity(double vx, double vy, double vTheta);
     void stop();
   private:
-    Motor& frontLeftMotor;
-    Motor& frontRightMotor;
-    Motor& backLeftMotor;
-    Motor& backRightMotor;
+    MotorController frontLeftMotorController;
+    MotorController frontRightMotorController;
+    MotorController backLeftMotorController;
+    MotorController backRightMotorController;
     double lx;
     double ly;
 };

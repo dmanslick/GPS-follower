@@ -8,8 +8,6 @@ VelocityEncoder::VelocityEncoder(int pinA, int pinB, double wheelRadius) {
   this->prevTime = micros();
   this->prevA = 0;
   this->velocity = 0;
-  pinMode(pinA, INPUT);
-  pinMode(pinB, INPUT);
 }
 
 double VelocityEncoder::getVelocity() {
@@ -46,4 +44,9 @@ void VelocityEncoder::update() {
   }
   
   prevA = A;
+}
+
+void VelocityEncoder::begin() {
+  pinMode(pinA, INPUT);
+  pinMode(pinB, INPUT);
 }

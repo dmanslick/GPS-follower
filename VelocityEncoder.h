@@ -1,5 +1,5 @@
-#ifndef Encoder_H
-#define Endoder_H
+#ifndef VelocityEncoder_H
+#define VelocityEncoder_H
 
 #include <Arduino.h>
 #include "Updatable.h"
@@ -18,6 +18,11 @@ class VelocityEncoder : public Updatable {
      * Gets the estimated angular velocity of the encoder in rad/s
      */
     double getAngularVelocity();
+
+    /*
+     * Initialize pins
+     */
+    void begin();
   private:
     int pinA;
     int pinB;
@@ -25,6 +30,6 @@ class VelocityEncoder : public Updatable {
     double wheelRadius;
     unsigned long prevTime;
     double velocity;
-}
+};
 
 #endif

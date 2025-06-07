@@ -10,18 +10,18 @@ struct PIDConfig {
 struct MotorPinConfig {
   int pwmPin;
   int directionPin;
-}
+};
 
 struct VelocityEncoderConfig {
   int pinA;
   int pinB;
   double wheelRadius;
-}
+};
 
 struct DriveControllerToleranceConfig {
   double xTolerance;
   double yTolerance;
   double thetaTolerance;
-}
+};
 
 #endif

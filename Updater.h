@@ -5,6 +5,7 @@
 
 class Updater {
   public:
+    Updater();
     void run();
     void registerUpdatable(Updatable* updatable);
   private:

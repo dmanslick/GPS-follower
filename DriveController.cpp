@@ -20,13 +20,4 @@ void DriveController::addWaypoint(double x, double y) {
 void DriveController::run() {
   double heading = 0.0; // TODO: calculate the heading of the robot
   double desiredHeading = 0.0; // TODO: calculate the desired heading of the robot
-
-  if ()
-
-  if (!Utils::isApproxEqual(heading, 1, desiredHeading)) {
-    drive.setLeftPower(-1);
-    drive.setRightPower(1);
-  } else {
-
-  }
 }

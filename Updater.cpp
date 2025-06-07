@@ -1,7 +1,7 @@
 #include "Updater.h"
 
 Updater::Updater() {
-  count = 0;
+  this->count = 0;
 }
 
 void Updater::run() {

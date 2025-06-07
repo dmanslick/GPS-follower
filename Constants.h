@@ -4,10 +4,10 @@
 #include "ConfigTypes.h"
 
 // motor pin configs
-const MotorPinConfig LeftFrontMotorPinConfig = { 0, 0 };
-const MotorPinConfig LeftBackMotorPinConfig = { 0, 0 };
-const MotorPinConfig RightFronttMotorPinConfig = { 0, 0 };
-const MotorPinConfig RightBackMotorPinConfig = { 0, 0 };
+const MotorPinConfig FrontLeftMotorPinConfig = { 0, 0 };
+const MotorPinConfig FrontRightMotorPinConfig = { 0, 0 };
+const MotorPinConfig BackLeftMotorPinConfig = { 0, 0 };
+const MotorPinConfig BackRightMotorPinConfig = { 0, 0 };
 
 // motor max voltage
 const double MotorMaxVoltage = 5;
@@ -16,21 +16,25 @@ const double MotorMaxVoltage = 5;
 const double WheelRadius = 1;
 
 // PID configs
-const PIDConfig LeftFrontMotorPIDConfig = { 1, 1, 1 };
-const PIDConfig LeftBackMotorPIDConfig = { 1, 1, 1 };
-const PIDConfig RightFrontMotorPIDConfig = { 1, 1, 1 };
-const PIDConfig RightBackMotorPIDConfig = { 1, 1, 1 };
+const PIDConfig FrontLeftMotorPIDConfig = { 1, 1, 1 };
+const PIDConfig FrontRightMotorPIDConfig = { 1, 1, 1 };
+const PIDConfig BackLeftMotorPIDConfig = { 1, 1, 1 };
+const PIDConfig BackRightMotorPIDConfig = { 1, 1, 1 };
 
 // velocity encoder configs
-const VelocityEncoderConfig LeftFrontVelocityEncoderConfig = { 0, 0, WheelRadius };
-const VelocityEncoderConfig LeftBackVelocityEncoderConfig = { 0, 0, WheelRadius };
-const VelocityEncoderConfig RightFronttVelocityEncoderConfig = { 0, 0, WheelRadius };
-const VelocityEncoderConfig RightBackVelocityEncoderConfig = { 0, 0, WheelRadius };
+const VelocityEncoderConfig FrontLeftVelocityEncoderConfig = { 0, 0, WheelRadius };
+const VelocityEncoderConfig FrontRightVelocityEncoderConfig = { 0, 0, WheelRadius };
+const VelocityEncoderConfig BackLeftVelocityEncoderConfig = { 0, 0, WheelRadius };
+const VelocityEncoderConfig BackRightVelocityEncoderConfig = { 0, 0, WheelRadius };
  
 // max waypoints
 const int MaxWaypoints = 100;
 
 // drive controller config
 const DriveControllerToleranceConfig DriveControllerConfig = { 1, 1, 1 };
+
+// lx and ly
+const double LX = 1;
+const double LY = 1;
 
 #endif
