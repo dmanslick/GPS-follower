@@ -1,3 +1,6 @@
+#include <PS4Controller.h>
+#include <ps4.h>
+#include <ps4_int.h>
 #include "Drive.h"
 #include "PIDController.h"
 #include "Motor.h"
@@ -7,6 +10,7 @@
 #include "Constants.h"
 #include "ConfigTypes.h"
 #include "Updater.h"
+#include "DriveController.h"
 
 // create all motors
 Motor frontLeftMotor(FrontLeftMotorPinConfig.pwmPin, FrontLeftMotorPinConfig.directionPin, MotorMaxVoltage);
@@ -14,7 +18,7 @@ Motor frontRightMotor(FrontRightMotorPinConfig.pwmPin, FrontRightMotorPinConfig.
 Motor backLeftMotor(BackLeftMotorPinConfig.pwmPin, BackLeftMotorPinConfig.directionPin, MotorMaxVoltage);
 Motor backRightMotor(BackRightMotorPinConfig.pwmPin, BackRightMotorPinConfig.directionPin, MotorMaxVoltage);
 
-// create all PIDs
+// create all motor PIDs
 PIDController frontLeftPID(FrontLeftMotorPIDConfig.kP, FrontLeftMotorPIDConfig.kI, FrontLeftMotorPIDConfig.kD);
 PIDController frontRightPID(FrontRightMotorPIDConfig.kP, FrontRightMotorPIDConfig.kI, FrontRightMotorPIDConfig.kD);
 PIDController backLeftPID(BackLeftMotorPIDConfig.kP, BackLeftMotorPIDConfig.kI, BackLeftMotorPIDConfig.kD);
@@ -22,9 +26,9 @@ PIDController backRightPID(BackRightMotorPIDConfig.kP, BackRightMotorPIDConfig.k
 
 // create all velocity encoders
 VelocityEncoder frontLeftVelocityEncoder(FrontLeftVelocityEncoderConfig.pinA, FrontLeftVelocityEncoderConfig.pinB, WheelRadius);
-VelocityEncoder frontRightVelocityEncoder(FrontRightVelocityEncoderConfig.pinA, FrontRightVelocityEncoderConfig.pinB, FrontRightVelocityEncoderConfig.wheelRadius);
-VelocityEncoder backLeftVelocityEncoder(BackLeftVelocityEncoderConfig.pinA, BackLeftVelocityEncoderConfig.pinB, BackLeftVelocityEncoderConfig.wheelRadius);
-VelocityEncoder backRightVelocityEncoder(BackRightVelocityEncoderConfig.pinA, BackRightVelocityEncoderConfig.pinB, BackRightVelocityEncoderConfig.wheelRadius);
+VelocityEncoder frontRightVelocityEncoder(FrontRightVelocityEncoderConfig.pinA, FrontRightVelocityEncoderConfig.pinB, WheelRadius);
+VelocityEncoder backLeftVelocityEncoder(BackLeftVelocityEncoderConfig.pinA, BackLeftVelocityEncoderConfig.pinB, WheelRadius);
+VelocityEncoder backRightVelocityEncoder(BackRightVelocityEncoderConfig.pinA, BackRightVelocityEncoderConfig.pinB, WheelRadius);
 
 // create all motor controllers
 MotorController frontLeftMotorController(frontLeftMotor, frontLeftVelocityEncoder, frontLeftPID);
@@ -33,13 +37,22 @@ MotorController backLeftMotorController(backLeftMotor, backLeftVelocityEncoder, 
 MotorController backRightMotorController(backRightMotor, backRightVelocityEncoder, backRightPID);
 
 // create drive
-Drive drive(LX, lY, frontLeftMotorController, frontRightMotorController, backLeftMotorController, backRightMotorController);
+Drive drive(LX, LY, frontLeftMotorController, frontRightMotorController, backLeftMotorController, backRightMotorController);
 
 // create odometry
-Odometry odometry(LX, LY, frontLeftMotorController, frontRightMotorController, backLeftMotorController, backRightMotorController);
+Odometry odometry(LX, LY, frontLeftVelocityEncoder, frontRightVelocityEncoder, backLeftVelocityEncoder, backRightVelocityEncoder);
+
+// create drive controller PID and drive controller
+PIDController driveControllerPID(DriveControllerPIDConfig.kP, DriveControllerPIDConfig.kI, DriveControllerPIDConfig.kD);
+DriveController driveController(DriveControllerConfig.xTolerance, DriveControllerConfig.yTolerance, DriveControllerConfig.thetaTolerance, drive, driveControllerPID, odometry);
 
 // create updater
 Updater updater;
+
+// create PS4 controller
+PS4Controller controller;
+
+bool autoDrive = false;
 
 void setup() {
   // begin all motors and velocity encoders
@@ -53,16 +66,32 @@ void setup() {
   backRightVelocityEncoder.begin();
 
   // register updatables
-  updater.registerUpdatable(frontLeftVelocityEncoder);
-  updater.registerUpdatable(frontRightVelocityEncoder);
-  updater.registerUpdatable(backLeftVelocityEncoder);
-  updater.registerUpdatable(backRightVelocityEncoder);
-  updater.registerUpdatable(odometry);
+  updater.registerUpdatable(&frontLeftVelocityEncoder);
+  updater.registerUpdatable(&frontRightVelocityEncoder);
+  updater.registerUpdatable(&backLeftVelocityEncoder);
+  updater.registerUpdatable(&backRightVelocityEncoder);
+  updater.registerUpdatable(&odometry);
+
+  // begin the PS4 controller
+  controller.begin();
 }
 
 void loop() {
   // run the updater
   updater.run();
+  
+  if (autoDrive == true) {
+    driveController.run();
+  }
 
-  // TODO: controller logic
+  if (controller.Circle()) {
+    autoDrive = !autoDrive;
+  }
+
+  if (autoDrive == false) {
+    double xPower = static_cast<double>(controller.LStickX()) / 127.0;
+    double yPower = static_cast<double>(controller.LStickY()) / 127.0;
+    double thetaPower = static_cast<double>(controller.RStickX()) / 127.0;
+    drive.setPower(xPower, yPower, thetaPower);
+  }
 }

@@ -3,7 +3,7 @@
 #include "Drive.h"
 #include "Utils.h"
 
-DriveController::DriveController(double xTolerance, double yTolerance, double thetaTolerance, Drive& drive, PIDController& distanceController) : drive(drive), distanceController(distanceController) {
+DriveController::DriveController(double xTolerance, double yTolerance, double thetaTolerance, Drive& drive, PIDController& distanceController, Odometry& odometry) : drive(drive), distanceController(distanceController), odometry(odometry) {
   this->waypointsCount = 0;
   this->currentWaypointCount = 0;
   this->xTolerance = xTolerance;

@@ -15,7 +15,6 @@ struct MotorPinConfig {
 struct VelocityEncoderConfig {
   int pinA;
   int pinB;
-  double wheelRadius;
 };
 
 struct DriveControllerToleranceConfig {
